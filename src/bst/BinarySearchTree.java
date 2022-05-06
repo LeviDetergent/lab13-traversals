@@ -169,7 +169,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//then recursively print the right side of current node
 	//For a bst this will print the values in sorted order from smallest to largest
 	public void inOrder() {
+		System.out.println("Recurse:");
 		inOrderRecurse(root); 
+		System.out.println();
+		System.out.println("Stack");
+		inOrderStack();
 		System.out.println("InOrder test commit");
 
 	}
@@ -189,6 +193,22 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//Traverse the tree in an inorder fashion but using a stack
 	public void inOrderStack() {
 		Stack<BSTNode<T>> in = new Stack<BSTNode<T>>();
+		BSTNode<T> current = root;
+		while (current != null) {
+			in.push(current);
+			current = current.leftChild;
+		}
+		while (!in.isEmpty()) {
+			BSTNode<T> temp = in.pop();
+			System.out.println(temp.data);
+			if (temp.rightChild != null) {
+				temp = temp.rightChild;
+				while (temp != null) {
+					in.push(temp);
+					temp = temp.leftChild;
+				}
+			}
+		}
 		
 		
 	}
@@ -196,8 +216,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//Traverse the tree in an postorder fashion
 	//Recurse on the children and then print the value in the current node
 	public void postOrder() {
-		System.out.println("PostOrder test commit");
 		postOrderRecurse(root); 
+		System.out.println("PostOrder test commit");
 	}
 	
 	public void postOrderRecurse(BSTNode<T> node) {
@@ -217,12 +237,21 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//I suggest using two stacks. Think about the order you want the elements
 	//to appear on the stack you will print.
 	public void postOrderStack() {
-		Stack<BSTNode<T>> post = new Stack<>();
+		Stack<BSTNode<T>> post = new Stack<>(); 
 		Stack<BSTNode<T>> postHelper = new Stack<>();
 		if(root!=null) {
 			postHelper.push(root);
 			while(!postHelper.isEmpty()) {
 				//how should post and postHelper be updated?
+				BSTNode<T> current = postHelper.pop();
+				post.push(current);
+				if(current.leftChild!=null) {
+					postHelper.push(current.leftChild);
+				}
+				if(current.rightChild!=null) {
+					postHelper.push(current.rightChild);
+				}
+				
 			}
 			
 			while(!post.isEmpty()) {
@@ -230,6 +259,24 @@ public class BinarySearchTree<T extends Comparable<T>> {
 				System.out.print(node + " ");
 			}
 		}
+	/*	BSTNode<T> current = root;
+		postHelper.push(null);
+		while(!post.isEmpty()) {
+			post.push(current);
+			postHelper.push(current);
+			if(postHelper.contains(post.peek().leftChild) && postHelper.contains(post.peek().rightChild)) {
+				System.out.println(post.pop()+" ");
+			}
+			if(post.peek().leftChild!=null && !postHelper.contains(post.peek().leftChild)) {
+				current = post.peek().leftChild;
+			}
+			else if(post.peek().rightChild!=null && !postHelper.contains(post.peek().rightChild)) {
+				current = post.peek().rightChild;
+			}
+			else {
+				current = post.pop();
+			}
+		}*/
 
 	}
 	
