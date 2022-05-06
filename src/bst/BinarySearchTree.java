@@ -167,11 +167,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	//then recursively print the right side of current node
 	//For a bst this will print the values in sorted order from smallest to largest
 	public void inOrder() {
-		System.out.println("Recurse:");
 		inOrderRecurse(root); 
-		System.out.println();
-		System.out.println("Stack");
-		inOrderStack();
 		System.out.println("InOrder test commit");
 
 	}
@@ -198,7 +194,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 		while (!in.isEmpty()) {
 			BSTNode<T> temp = in.pop();
-			System.out.println(temp.data);
+			System.out.print(temp.data + " ");
 			if (temp.rightChild != null) {
 				temp = temp.rightChild;
 				while (temp != null) {
