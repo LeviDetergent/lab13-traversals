@@ -141,24 +141,22 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		
 		BSTNode<T> current = root;
 		
-		if(current == null) {
-			return;
-		}
-		
 		while(current != null || !pre.isEmpty()) {
 			while(current != null) {
 				pre.push(current);
 				System.out.println(pre.pop());
 				
+				//Push right children into the stack
 				if(current.rightChild != null) {
 					pre.push(current.rightChild);
 				}
 				
+				//Print left children
 				current = current.leftChild;
 			}
 			
 			if(!pre.isEmpty()) {
-				System.out.println(pre.pop());
+				current = pre.pop();
 			}
 		}
 	}
